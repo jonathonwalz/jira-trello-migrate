@@ -2,12 +2,19 @@
   "name": "jira-trello-migrate",
   "version": "0.1.0",
   "description": "Migrate issues from JIRA to trello (very basic).",
-  "keywords": ["JIRA", "Trello", "migrate"],
-  "bin": {"jira-trello-migrate": "./jira-trello-migrate.js"},
+  "keywords": [
+    "JIRA",
+    "Trello",
+    "migrate"
+  ],
+  "bin": {
+    "jira-trello-migrate": "./jira-trello-migrate.js"
+  },
   "dependencies": {
     "node-trello": "^1.1.1",
     "nomnom": "^1.8.1",
-    "promise": "^7.0.0"
+    "q": "^1.2.0",
+    "q-io": "^1.12.0"
   },
   "devDependencies": {},
   "scripts": {

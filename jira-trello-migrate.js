@@ -23,14 +23,31 @@ var opts = require('nomnom')
         type: 'string',
         required: true
     })
+    .option('project', {
+        abbr: 'p',
+        help: 'The path to a directory of json files representing JIRA issues',
+        type: 'string',
+        required: true
+    })
     .parse();
 
 var util = require('util');
-var Promise = require('promise');
+var Q = require('q');
+var FS = require("q-io/fs");
 var Trello = require('./trello-wrapper');
 var t = new Trello(opts.key, opts.token);
 var board = t.get(util.format('/1/boards/%s/', opts.board));
 var labels = new (require('./labels'))(t, board);
+
+var issues = FS.listTree(opts.project, function(path, stat) {
+    return stat.isFile() && path.indexOf('sync_state.json') < 0 && path.match('json$') == 'json';
+}).then(function (filePaths) {
+    return filePaths.map(function (filePath) {
+        return FS.read(filePath).then(function(content) {
+            return JSON.parse(content);
+        });
+    });
+});
 
 // t.get(util.format('/1/boards/%s/labels', board)).then(
 //     function(data){console.log(data);},

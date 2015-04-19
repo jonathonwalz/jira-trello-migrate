@@ -1,4 +1,4 @@
-var Promise = require('promise');
+var Q = require('q');
 var Trello = require('node-trello');
 
 var TrelloWrapper = module.exports = function (key, token) {
@@ -7,7 +7,7 @@ var TrelloWrapper = module.exports = function (key, token) {
 
 TrelloWrapper.prototype.get = function(uri, args) {
     var self = this;
-    return new Promise(function (fulfill, reject) {
+    return Q.Promise(function (fulfill, reject) {
         self.trello.get(uri, args, function (err, res) {
             if (err) {
                 reject(err);
@@ -20,7 +20,7 @@ TrelloWrapper.prototype.get = function(uri, args) {
 
 TrelloWrapper.prototype.post = function(uri, args) {
     var self = this;
-    return new Promise(function (fulfill, reject) {
+    return Q.Promise(function (fulfill, reject) {
         self.trello.post(uri, args, function (err, res) {
             if (err) {
                 reject(err);
