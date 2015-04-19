@@ -17,3 +17,16 @@ TrelloWrapper.prototype.get = function(uri, args) {
         });
     });
 }
+
+TrelloWrapper.prototype.post = function(uri, args) {
+    var self = this;
+    return new Promise(function (fulfill, reject) {
+        self.trello.post(uri, args, function (err, res) {
+            if (err) {
+                reject(err);
+            } else {
+                fulfill(res);
+            }
+        });
+    });
+}

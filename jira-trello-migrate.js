@@ -29,5 +29,44 @@ var util = require('util');
 var Promise = require('promise');
 var Trello = require('./trello-wrapper');
 var t = new Trello(opts.key, opts.token);
-var board = opts.board;
+var board = t.get(util.format('/1/boards/%s/', opts.board));
 
+var labels = new (function (board) {
+    this.currentLabels = board.then(function (b) {
+        return t.get(util.format('/1/boards/%s/labels', b.id)).then(function (labels) {
+            var map = {};
+            labels.forEach(function(label){
+                if (!map[label.name]) {
+                    map[label.name] = [];
+                }
+                map[label.name].push(label);
+            });
+            for (key in map) {
+                if (map.hasOwnProperty(key)) {
+                    map[key] = Promise.resolve(map[key]);
+                }
+            }
+        
+            return map;
+        });
+    });
+
+    this.getLabel = function(name) {
+        return this.currentLabels.then(function(map) {
+            return board.then(function (b) {
+                if (!map[name]) {
+                    map[name] = t.post('/1/labels', {
+                        name: name,
+                        color: null,
+                        idBoard: b.id
+                    }).then(function (label) {
+                    console.log(label);
+                        return [label];
+                    });
+                }
+    
+                return map[name];
+            });
+        });
+    };
+})(board);
