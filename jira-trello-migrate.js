@@ -49,7 +49,7 @@ var lists = new (require('./lists'))(t, board);
 
 var processComment = function(card, comment) {
     var cardComment = {
-        text: util.format('From %s on %s:\\n%s', comment.author.displayName, comment.created, comment.body)
+        text: util.format('From %s on %s:\n\n%s', comment.author.displayName, comment.created, comment.body)
     };
     
     return t.post(util.format('/1/cards/%s/actions/comments', card.id), cardComment);
@@ -80,7 +80,7 @@ var processIssue = function(issue) {
     return Q.spread([cardListPromise, cardLabelsPromise], function (cardList, cardLabels) {
         var card = {
             name: util.format('%s (%s)', issue.fields.summary, issue.key),
-            desc: util.format('From %s on %s:\\n%s', issue.fields.creator.displayName, issue.fields.created, issue.fields.description),
+            desc: util.format('From %s on %s:\n\n%s', issue.fields.creator.displayName, issue.fields.created, issue.fields.description),
             due: null,
             idLabels: cardLabels,
             idList: cardList,
