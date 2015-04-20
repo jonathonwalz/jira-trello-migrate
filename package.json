@@ -11,7 +11,7 @@
     "jira-trello-migrate": "./jira-trello-migrate.js"
   },
   "dependencies": {
-    "node-trello": "^1.1.1",
+    "node-trello": "jonathonwalz/node-trello",
     "nomnom": "^1.8.1",
     "q": "^1.2.0",
     "q-io": "^1.12.0"
@@ -24,6 +24,6 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git://github.com/username/repository.git"
+    "url": "git://github.com/jonathonwalz/jira-trello-migrate.git"
   }
 }

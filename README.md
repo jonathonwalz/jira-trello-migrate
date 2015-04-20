@@ -2,6 +2,8 @@
 
 This is a really simple utility to help port JIRA issues into Trello. This does not perform a very faithful migration. It primarily just makes sure all the issues make it to Trello.
 
+Note that this is very much a tool that was quick thrown together; it is probably quite buggy. It also depends on a fork of node-trello to introduce rate limiting and I probably won't get a chance to clean it up enough to get it back into the master.
+
 ## Downloading from JIRA
 
 While this is called jira-trello-migration it is more accurately a json issue uploader. You must use [jira-sync](https://github.com/programmiersportgruppe/jira-sync) to download your issues from JIRA. The files that are downloaded from there can then be used here to upload to Trello. If you want to migrate your issue attachments too, [this pull request](https://github.com/programmiersportgruppe/jira-sync/pull/3) must be merged or you can use [my fork and branch](https://github.com/jonathonwalz/jira-sync).
