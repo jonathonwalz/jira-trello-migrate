@@ -38,6 +38,7 @@ var Trello = require('./trello-wrapper');
 var t = new Trello(opts.key, opts.token);
 var board = t.get(util.format('/1/boards/%s/', opts.board));
 var labels = new (require('./labels'))(t, board);
+var lists = new (require('./lists'))(t, board);
 
 var issues = FS.listTree(opts.project, function(path, stat) {
     return stat.isFile() && path.indexOf('sync_state.json') < 0 && path.match('json$') == 'json';
@@ -49,12 +50,3 @@ var issues = FS.listTree(opts.project, function(path, stat) {
     });
 });
 
-// t.get(util.format('/1/boards/%s/labels', board)).then(
-//     function(data){console.log(data);},
-//     function(error) {console.log('Error');console.log(error);}
-// );
-
-labels.getLabel('test2').then(
-    function(data){console.log(data);},
-    function(error) {console.log('Error');console.log(error);}
-);
